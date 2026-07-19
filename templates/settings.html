@@ -1,0 +1,59 @@
+{{define "settings"}}
+<!DOCTYPE html>
+<html lang="en" data-theme="{{.Page.Theme}}">
+<head>{{template "head" .Page}}
+  <title>{{.Page.Title}}</title>
+</head>
+<body>
+{{template "header" .}}
+<main class="main-content">
+  <section class="page-hero">
+    <h1 class="hero-title">Settings</h1>
+    <p class="hero-sub">Customise your Haven experience.</p>
+  </section>
+
+  <div class="settings-panel">
+    <div class="setting-row">
+      <div class="setting-info">
+        <h2 class="setting-name">Appearance</h2>
+        <p class="setting-desc">Toggle between light and dark mode. Your preference is saved automatically.</p>
+      </div>
+      <div class="setting-control">
+        <label class="toggle-switch" for="theme-switch">
+          <input type="checkbox" id="theme-switch" {{if eq .Theme "dark"}}checked{{end}}>
+          <span class="toggle-slider"></span>
+        </label>
+        <span class="toggle-label" id="theme-label">{{if eq .Theme "dark"}}Dark{{else}}Light{{end}}</span>
+      </div>
+    </div>
+
+    <hr class="setting-rule">
+
+    <div class="setting-row">
+      <div class="setting-info">
+        <h2 class="setting-name">Data</h2>
+        <p class="setting-desc">Market data is cached locally. Prices update when CoinGecko is reachable.</p>
+      </div>
+      <div class="setting-control">
+        <span class="setting-value muted">Auto-cached</span>
+      </div>
+    </div>
+
+    <hr class="setting-rule">
+
+    <div class="setting-row">
+      <div class="setting-info">
+        <h2 class="setting-name">About Haven</h2>
+        <p class="setting-desc">A lightweight DeFi portfolio tracker. No accounts, no tracking &mdash; just your data, your device.</p>
+      </div>
+      <div class="setting-control">
+        <span class="setting-value">v1.0.0</span>
+      </div>
+    </div>
+  </div>
+</main>
+{{template "footer" .}}
+<script src="/static/js/main.js"></script>
+</body>
+</html>
+{{end}}

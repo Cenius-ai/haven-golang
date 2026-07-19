@@ -1,0 +1,141 @@
+{{define "dashboard"}}
+<!DOCTYPE html>
+<html lang="en" data-theme="{{.Page.Theme}}">
+<head>{{template "head" .Page}}
+  <title>{{.Page.Title}}</title>
+</head>
+<body>
+{{template "header" .}}
+<main class="main-content">
+
+  {{if .Error}}
+  <div class="status-banner status-error">
+    <p>{{.Error}}</p>
+  </div>
+  {{end}}
+
+  {{if .HasTriggered}}
+  <div class="triggered-alerts-banner" id="triggered-banner">
+    {{range .TriggeredAlerts}}
+    <div class="triggered-toast" data-alert-id="{{.ID}}">
+      <span class="toast-icon">⚡</span>
+      <span class="toast-msg"><strong>{{.CoinName}}</strong> {{if eq .Direction "above"}}crossed above{{else}}fell below{{end}} {{.TargetPrice | fma}}</span>
+      <button class="toast-dismiss" data-dismiss-alert="{{.ID}}" aria-label="Dismiss">&times;</button>
+    </div>
+    {{end}}
+  </div>
+  {{end}}
+
+  <!-- Portfolio summary -->
+  <section class="portfolio-dash-summary">
+    <div class="summary-header">
+      <h2 class="section-title">Portfolio</h2>
+      <a href="/portfolio" class="view-all-link">View all &rarr;</a>
+    </div>
+
+    {{if .HasHoldings}}
+    <div class="portfolio-summary">
+      <div class="summary-card">
+        <span class="summary-label">Total Value</span>
+        <span class="summary-value">{{.Portfolio.TotalValue | fma}}</span>
+      </div>
+      <div class="summary-card {{if gt .Portfolio.TotalPnL 0.0}}positive{{else if lt .Portfolio.TotalPnL 0.0}}negative{{end}}">
+        <span class="summary-label">Total P&amp;L</span>
+        <span class="summary-value">{{.Portfolio.TotalPnL | fma}} ({{.Portfolio.TotalPnLPct | fmpct}})</span>
+      </div>
+    </div>
+
+    <div class="holdings-mini-list">
+      {{range .Portfolio.Holdings}}
+      <div class="holding-mini-row">
+        <a href="/coins/{{.CoinID}}" class="asset-link">
+          <span class="coin-symbol-chip sm">{{.CoinSymbol}}</span>
+          <span>{{.CoinName}}</span>
+        </a>
+        <span class="holding-mini-amount">{{.Amount | fma}}</span>
+        <span class="holding-mini-value">{{.CurrentValue | fma}}</span>
+        <span class="holding-mini-pnl {{if gt .PnL 0.0}}positive{{else if lt .PnL 0.0}}negative{{end}}">{{.PnLPct | fmpct}}</span>
+        <button class="btn-remove" data-remove-holding="{{.ID}}" aria-label="Remove holding">&times;</button>
+      </div>
+      {{end}}
+    </div>
+    {{else}}
+    <div class="empty-state">
+      <p>No holdings yet. Track your first position below.</p>
+    </div>
+    {{end}}
+
+    <!-- Inline add-holding form on dashboard -->
+    <details class="add-details">
+      <summary class="add-summary">+ Add Holding</summary>
+      <form id="add-holding-form" class="inline-form" style="margin-top:0.75rem">
+        <select name="coin_id" required aria-label="Select coin">
+          <option value="">Select coin&hellip;</option>
+          {{range .Coins}}
+          <option value="{{.ID}}">{{.Name}} ({{.Symbol}})</option>
+          {{end}}
+        </select>
+        <input type="number" name="amount" placeholder="Amount" step="any" min="0.00000001" required aria-label="Amount">
+        <input type="number" name="purchase_price" placeholder="Entry price (USD)" step="any" min="0.00000001" required aria-label="Entry price">
+        <button type="submit" class="btn-primary">Add</button>
+      </form>
+      <p class="form-error" id="holding-error" style="display:none"></p>
+    </details>
+  </section>
+
+  <hr class="section-rule">
+
+  <!-- Top coin prices -->
+  <section class="top-coins-section">
+    <h2 class="section-title">Top Coins</h2>
+    <div class="top-coins-grid">
+      {{range .TopCoins}}
+      <a href="/coins/{{.ID}}" class="top-coin-card">
+        <span class="coin-symbol-chip">{{.Symbol}}</span>
+        <span class="top-coin-name">{{.Name}}</span>
+        <span class="top-coin-price">{{.CurrentPrice | fma}}</span>
+        <span class="coin-change {{if gt .PriceChangePercentage24h 0.0}}positive{{else if lt .PriceChangePercentage24h 0.0}}negative{{end}}">
+          {{.PriceChangePercentage24h | fmpct}}
+        </span>
+      </a>
+      {{end}}
+    </div>
+  </section>
+
+  <hr class="section-rule">
+
+  <!-- Full market grid -->
+  <section>
+    <h2 class="section-title">Market Overview</h2>
+    <div class="coin-grid" id="coin-grid">
+      {{range .Coins}}
+      <a href="/coins/{{.ID}}" class="coin-card">
+        <div class="coin-card-head">
+          <span class="coin-symbol-chip">{{.Symbol}}</span>
+          <span class="coin-change {{if gt .PriceChangePercentage24h 0.0}}positive{{else if lt .PriceChangePercentage24h 0.0}}negative{{end}}">
+            {{.PriceChangePercentage24h | fmpct}}
+          </span>
+        </div>
+        <h2 class="coin-card-name">{{.Name}}</h2>
+        <div class="coin-card-price">{{.CurrentPrice | fma}}</div>
+        <div class="coin-card-mcap">MCap {{.MarketCap | fmc}}</div>
+      </a>
+      {{end}}
+    </div>
+  </section>
+
+</main>
+{{template "footer" .}}
+<script src="/static/js/main.js"></script>
+</body>
+</html>
+{{end}}
+
+{{define "head"}}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="/static/css/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,600;0,6..96,700;1,6..96,400&family=Figtree:wght@400;500;700&display=swap" rel="stylesheet">
+{{end}}
