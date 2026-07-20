@@ -1,0 +1,19 @@
+# Haven — .gitignore
+
+# Environment
+.env
+
+# Build output
+/tmp/
+haven
+*.exe
+
+# Runtime data (auto-created)
+/data/
+/cache/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
