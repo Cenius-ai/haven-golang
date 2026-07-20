@@ -1,0 +1,83 @@
+{{define "portfolio"}}
+<!DOCTYPE html>
+<html lang="en" data-theme="{{.Page.Theme}}">
+<head>{{template "head" .Page}}
+  <title>{{.Page.Title}}</title>
+</head>
+<body>
+{{template "header" .}}
+<main class="main-content">
+  <section class="page-hero">
+    <h1 class="hero-title">Portfolio</h1>
+    <p class="hero-sub">Your holdings and performance at a glance.</p>
+  </section>
+
+  <div class="portfolio-summary">
+    <div class="summary-card">
+      <span class="summary-label">Total Value</span>
+      <span class="summary-value">{{.TotalValue | fma}}</span>
+    </div>
+    <div class="summary-card {{if gt .TotalPnL 0.0}}positive{{else if lt .TotalPnL 0.0}}negative{{end}}">
+      <span class="summary-label">Total P&amp;L</span>
+      <span class="summary-value">{{.TotalPnL | fma}} ({{.TotalPnLPct | fmpct}})</span>
+    </div>
+  </div>
+
+  {{if .Holdings}}
+  <div class="holdings-table-wrap">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Asset</th>
+          <th class="num">Amount</th>
+          <th class="num">Entry Price</th>
+          <th class="num">Current Price</th>
+          <th class="num">Value</th>
+          <th class="num">P&amp;L</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{range .Holdings}}
+        <tr>
+          <td><a href="/coins/{{.CoinID}}" class="asset-link">{{.CoinName}} <span class="coin-symbol-chip sm">{{.CoinID}}</span></a></td>
+          <td class="num">{{.Amount | fma}}</td>
+          <td class="num">{{.PurchasePrice | fma}}</td>
+          <td class="num">{{.CurrentPrice | fma}}</td>
+          <td class="num">{{.CurrentValue | fma}}</td>
+          <td class="num {{if gt .PnL 0.0}}positive{{else if lt .PnL 0.0}}negative{{end}}">
+            {{.PnL | fma}}<br><small>({{.PnLPct | fmpct}})</small>
+          </td>
+          <td><button class="btn-remove" data-remove-holding="{{.ID}}" aria-label="Remove holding">&times;</button></td>
+        </tr>
+        {{end}}
+      </tbody>
+    </table>
+  </div>
+  {{else}}
+  <div class="empty-state">
+    <p>No holdings yet. Add your first position below.</p>
+  </div>
+  {{end}}
+
+  <section class="add-section">
+    <h2 class="section-title">Add Holding</h2>
+    <form id="add-holding-form" class="inline-form">
+      <select name="coin_id" required aria-label="Select coin">
+        <option value="">Select coin&hellip;</option>
+        {{range .Coins}}
+        <option value="{{.ID}}">{{.Name}} ({{.Symbol}})</option>
+        {{end}}
+      </select>
+      <input type="number" name="amount" placeholder="Amount" step="any" min="0.00000001" required aria-label="Amount">
+      <input type="number" name="purchase_price" placeholder="Entry price (USD)" step="any" min="0.00000001" required aria-label="Entry price">
+      <button type="submit" class="btn-primary">Add</button>
+    </form>
+    <p class="form-error" id="holding-error" style="display:none"></p>
+  </section>
+</main>
+{{template "footer" .}}
+<script src="/static/js/main.js"></script>
+</body>
+</html>
+{{end}}

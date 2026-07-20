@@ -1,0 +1,70 @@
+{{define "alerts"}}
+<!DOCTYPE html>
+<html lang="en" data-theme="{{.Page.Theme}}">
+<head>{{template "head" .Page}}
+  <title>{{.Page.Title}}</title>
+</head>
+<body>
+{{template "header" .}}
+<main class="main-content">
+  <section class="page-hero">
+    <h1 class="hero-title">Price Alerts</h1>
+    <p class="hero-sub">Set threshold alerts and know when the market moves.</p>
+  </section>
+
+  {{if .Alerts}}
+  <div class="alerts-list">
+    {{range .Alerts}}
+    <div class="alert-card {{if not .Active}}inactive{{end}}{{if .Triggered}} triggered{{end}}">
+      <div class="alert-info">
+        <span class="alert-coin">{{.CoinName}}</span>
+        <span class="alert-condition">
+          {{if eq .Direction "above"}}↑ above{{else}}↓ below{{end}}
+          <strong>{{.TargetPrice | fma}}</strong>
+        </span>
+        <span class="alert-current">Now: {{.CurrentPrice | fma}}</span>
+      </div>
+      <div class="alert-status">
+        {{if not .Active}}
+        <span class="status-pill inactive">Inactive</span>
+        {{else if .Triggered}}
+        <span class="status-pill triggered">Triggered</span>
+        {{else}}
+        <span class="status-pill active">Active</span>
+        {{end}}
+        <button class="btn-remove" data-remove-alert="{{.ID}}" aria-label="Remove alert">&times;</button>
+      </div>
+    </div>
+    {{end}}
+  </div>
+  {{else}}
+  <div class="empty-state">
+    <p>No alerts configured. Create your first price alert below.</p>
+  </div>
+  {{end}}
+
+  <section class="add-section">
+    <h2 class="section-title">Create Alert</h2>
+    <form id="add-alert-form" class="inline-form">
+      <select name="coin_id" required aria-label="Select coin">
+        <option value="">Select coin&hellip;</option>
+        {{range .Coins}}
+        <option value="{{.ID}}">{{.Name}} ({{.Symbol}})</option>
+        {{end}}
+      </select>
+      <select name="direction" required aria-label="Alert direction">
+        <option value="">Direction&hellip;</option>
+        <option value="above">Above</option>
+        <option value="below">Below</option>
+      </select>
+      <input type="number" name="target_price" placeholder="Target price (USD)" step="any" min="0.00000001" required aria-label="Target price">
+      <button type="submit" class="btn-primary">Create Alert</button>
+    </form>
+    <p class="form-error" id="alert-error" style="display:none"></p>
+  </section>
+</main>
+{{template "footer" .}}
+<script src="/static/js/main.js"></script>
+</body>
+</html>
+{{end}}

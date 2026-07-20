@@ -1,0 +1,31 @@
+{{define "header"}}
+<header class="site-header">
+  <div class="header-inner">
+    <a href="/" class="logo" aria-label="Haven home">
+      <span class="logo-mark">⌂</span>
+      <span class="logo-text">Haven</span>
+    </a>
+    <nav class="main-nav" aria-label="Primary navigation">
+      <a href="/" class="nav-link{{if eq .Page.ActivePage "dashboard"}} active{{end}}">Dashboard</a>
+      <a href="/portfolio" class="nav-link{{if eq .Page.ActivePage "portfolio"}} active{{end}}">Portfolio</a>
+      <a href="/alerts" class="nav-link{{if eq .Page.ActivePage "alerts"}} active{{end}}">Alerts</a>
+      <a href="/settings" class="nav-link{{if eq .Page.ActivePage "settings"}} active{{end}}">Settings</a>
+    </nav>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle theme">
+      <span class="icon-sun">☀</span>
+      <span class="icon-moon">☾</span>
+    </button>
+    <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle menu" aria-expanded="false">
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+    </button>
+  </div>
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
+    <a href="/" class="mobile-nav-link{{if eq .Page.ActivePage "dashboard"}} active{{end}}">Dashboard</a>
+    <a href="/portfolio" class="mobile-nav-link{{if eq .Page.ActivePage "portfolio"}} active{{end}}">Portfolio</a>
+    <a href="/alerts" class="mobile-nav-link{{if eq .Page.ActivePage "alerts"}} active{{end}}">Alerts</a>
+    <a href="/settings" class="mobile-nav-link{{if eq .Page.ActivePage "settings"}} active{{end}}">Settings</a>
+  </nav>
+</header>
+{{end}}

@@ -1,0 +1,71 @@
+{{define "coin"}}
+<!DOCTYPE html>
+<html lang="en" data-theme="{{.Page.Theme}}">
+<head>{{template "head" .Page}}
+  <title>{{.Page.Title}}</title>
+</head>
+<body>
+{{template "header" .}}
+<main class="main-content">
+  {{if .Error}}
+  <section class="page-hero">
+    <h1 class="hero-title">Coin not found</h1>
+  </section>
+  <div class="status-banner status-error">
+    <p>{{.Error}}</p>
+  </div>
+  <p><a href="/" class="back-link">&larr; Back to Dashboard</a></p>
+  {{else}}
+  <nav class="breadcrumb">
+    <a href="/">Dashboard</a>
+    <span class="breadcrumb-sep">/</span>
+    <span>{{.Coin.Name}}</span>
+  </nav>
+
+  <section class="coin-detail-hero">
+    <div class="coin-detail-head">
+      <span class="coin-symbol-chip lg">{{.Coin.Symbol}}</span>
+      <div>
+        <h1 class="hero-title">{{.Coin.Name}}</h1>
+        <p class="coin-detail-id">{{.Coin.ID}}</p>
+      </div>
+    </div>
+    <div class="coin-detail-price">
+      <span class="detail-price-value">{{.Coin.CurrentPrice | fma}}</span>
+      <span class="detail-price-change {{if gt .Coin.PriceChangePercentage24h 0.0}}positive{{else if lt .Coin.PriceChangePercentage24h 0.0}}negative{{end}}">
+        {{.Coin.PriceChangePercentage24h | fmpct}} (24h)
+      </span>
+    </div>
+  </section>
+
+  <div class="coin-detail-grid">
+    <div class="detail-card">
+      <span class="detail-label">Market Cap</span>
+      <span class="detail-value">{{.Coin.MarketCap | fmc}}</span>
+    </div>
+    <div class="detail-card">
+      <span class="detail-label">24h Change</span>
+      <span class="detail-value {{if gt .Coin.PriceChangePercentage24h 0.0}}positive{{else if lt .Coin.PriceChangePercentage24h 0.0}}negative{{end}}">
+        {{.Coin.PriceChangePercentage24h | fmpct}}
+      </span>
+    </div>
+    <div class="detail-card">
+      <span class="detail-label">Symbol</span>
+      <span class="detail-value">{{.Coin.Symbol}}</span>
+    </div>
+    {{if .Holding}}
+    <div class="detail-card">
+      <span class="detail-label">Your Position</span>
+      <span class="detail-value">{{.Holding.Amount | fma}} coins @ {{.Holding.PurchasePrice | fma}}</span>
+    </div>
+    {{end}}
+  </div>
+
+  <p class="back-wrap"><a href="/" class="back-link">&larr; Back to Dashboard</a></p>
+  {{end}}
+</main>
+{{template "footer" .}}
+<script src="/static/js/main.js"></script>
+</body>
+</html>
+{{end}}
