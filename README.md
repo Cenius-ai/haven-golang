@@ -1,4 +1,4 @@
-# Haven — open-source personal finance tracker
+# Haven — complete Go personal finance tracker example app
 
 **Haven** is a free, open-source personal finance tracker built with Go. A DeFi crypto portfolio tracker built with Go (Gin) and server-rendered templates. Run it locally, deploy it as a self-hosted personal finance tracker, or [remix it on cenius.ai](https://cenius.ai/marketplace/p/haven?ref=gh&utm_campaign=haven-golang) to make it your own — the whole application (code, design, seeded demo data) ships in this repository under the MIT license.
 
@@ -6,7 +6,9 @@
 
 ## Demo
 
-![Haven demo — personal finance tracker built with Go](.github/media/hero.gif)
+![Haven — personal finance tracker](.github/media/poster.png)
+
+![Haven demo — personal finance tracker built with Go](.github/media/hero_flagship.gif)
 
 ▶ **[Watch the full demo video](https://cenius.ai/marketplace/p/haven?ref=gh&utm_campaign=haven-golang)** — the complete walkthrough, playing on the project's cenius.ai page · [MP4 file](.github/media/demo.mp4)
 
@@ -79,7 +81,7 @@ _Full guide: [`USAGE.md`](USAGE.md)_
 
 ## Architecture
 
-Go application, delivered as a complete, runnable project (33 files). Top-level layout: `cache/`, `data/`, `handlers/`, `seed/`, `services/`, `static/`, `store/`, `templates/`. `install.sh` provisions dependencies and seeds demo data, so the app boots with something to show. Setup details live in [`INSTALL.md`](INSTALL.md).
+Go application, delivered as a complete, runnable project (27 files). Top-level layout: `cache/`, `data/`, `handlers/`, `seed/`, `services/`, `static/`, `store/`, `templates/`. `install.sh` provisions dependencies and seeds demo data, so the app boots with something to show. Setup details live in [`INSTALL.md`](INSTALL.md).
 
 ## FAQ
 
