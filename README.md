@@ -1,14 +1,14 @@
 # Haven — complete Go personal finance tracker example app
 
-**Haven** is a free, open-source personal finance tracker built with Go. A DeFi crypto portfolio tracker built with Go (Gin) and server-rendered templates. Run it locally, deploy it as a self-hosted personal finance tracker, or [remix it on cenius.ai](https://cenius.ai/marketplace/p/haven?ref=gh&utm_campaign=haven-golang) to make it your own — the whole application (code, design, seeded demo data) ships in this repository under the MIT license.
+**Haven** is a free, open-source personal finance tracker built with Go. A DeFi crypto portfolio tracker built with Go (Gin) and server-rendered templates. Run it locally, deploy it as a self-hosted personal finance tracker, or [remix it on cenius.ai](https://cenius.ai/marketplace/p/haven?ref=gh&utm_campaign=haven-golang) to make it your own — the whole application (code, design, seeded demo data) ships in this repository under the Apache-2.0 license.
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-16b881.svg)](LICENSE) ![Stack](https://img.shields.io/badge/Stack-Go-3b82f6) [![Built with cenius.ai](https://img.shields.io/badge/Built%20with-cenius.ai-8b5cf6)](https://cenius.ai)
+[![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE) ![Stack](https://img.shields.io/badge/Stack-Go-3b82f6) [![Built with cenius.ai](https://img.shields.io/badge/Built%20with-cenius.ai-8b5cf6)](https://cenius.ai)
 
-[![Open in cenius.ai](https://img.shields.io/badge/▶%20Open%20%26%20edit%20in-cenius.ai-8b5cf6?style=for-the-badge)](https://cenius.ai/marketplace/p/haven)
+[![Open in cenius.ai](https://img.shields.io/badge/▶%20Open%20%26%20edit%20in-cenius.ai-8b5cf6?style=for-the-badge)](https://cenius.ai/marketplace/p/haven?ref=gh&utm_campaign=haven-golang)
 
-> **▶ [Open & edit in cenius.ai](https://cenius.ai/marketplace/p/haven)** — one click to an editable workspace: describe changes in plain English, get an instant preview, one-click deploy and host. Modifications made on the platform come with full rebrand & relicense rights.
+> **▶ [Open & edit in cenius.ai](https://cenius.ai/marketplace/p/haven?ref=gh&utm_campaign=haven-golang)** — one click to an editable workspace: describe changes in plain English, get an instant preview, one-click deploy and host. Modifications made on the platform come with full rebrand & relicense rights.
 
-_Local clone? See [Quick start](#quick-start) or [Quickstart](#quickstart) below. cenius.ai is the zero-setup path._
+_Local clone? See [Quick start](#quick-start) below. cenius.ai is the zero-setup path._
 
 ## Demo
 
@@ -101,7 +101,7 @@ Haven is a Go application — and this repository holds the complete, runnable s
 
 ### Does the Haven license allow commercial use?
 
-It is. MIT licensing means you can build a product on it, sell it, or use it inside a company with no fees. Details: [LICENSE](LICENSE).
+It is. Apache-2.0 licensing means you can build a product on it, sell it, or use it inside a company with no fees. Details: [LICENSE](LICENSE).
 
 ### Can I rebrand or white-label Haven?
 
@@ -113,7 +113,7 @@ Describe what you want changed on [cenius.ai](https://cenius.ai/marketplace/p/ha
 
 ## License & rebranding
 
-Released under the [MIT License](LICENSE) (© 2026 Cenius AI) — free for personal and commercial use.
+Released under the [Apache License 2.0](LICENSE) (© 2026 Cenius AI) — free for personal and commercial use. The Cenius name/logo are trademarks (see NOTICE).
 
 **Need a customized version?** [Remix this app on cenius.ai](https://cenius.ai/marketplace/p/haven?ref=gh&utm_campaign=haven-golang) — modifications made on the platform come with **full rebrand & relicense rights** over your derivative.
 
